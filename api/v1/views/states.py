@@ -3,8 +3,8 @@
 handles all default RestFul API actions for State object
 """
 from api.v1.views import app_views
+from flask import abort, jsonify
 from models import State, storage, BaseModel
-import json
 
 
 @app_views.route('/states/', methods=['GET'])
@@ -18,11 +18,12 @@ def stateList(state_id=None):
             for k, v in state.to_json().items():
                 stateDict[k] = v
             stateList.append(stateDict)
-        return (json.dumps(stateList, indent=2, sort_keys=True) + "\n")
+        return (jsonify(stateList))
     else:
         stateDict = {}
         for s_id, data in states.items():
             if s_id == state_id:
                 for k, v in data.to_json().items():
                     stateDict[k] = v
-        return (json.dumps(stateDict, indent=2, sort_keys=True) + "\n")
+                    return (jsonify(stateDict))
+        abort(404)
