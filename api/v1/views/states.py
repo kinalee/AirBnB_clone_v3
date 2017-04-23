@@ -6,14 +6,13 @@ from api.v1.views import app_views
 from models import State, storage, BaseModel
 import json
 
-stateList = []
 
-
-@app_views.route('/states/' methods=['GET'])
-@app_views.route('/states/<state_id>' methods=['GET'])
+@app_views.route('/states/', methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET'])
 def stateList(state_id=None):
     states = storage.all("State")
     if state_id is None:
+        stateList = []
         for state in states.values():
             stateDict = {}
             for k, v in state.to_json().items():
