@@ -2,15 +2,11 @@
 """
 
 """
-from flask import Flask
-import json
-
+from api.v1.views import app_views
+from flask import Flask, jsonify
+from models import storage
 
 app = Flask(__name__)
-from models import storage
-from api.v1.views import app_views
-
-
 app.register_blueprint(app_views)
 
 
@@ -21,8 +17,7 @@ def teardown(exception):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    page = json.dumps({"error": "Not found"}, indent=2)
-    return (page + "\n")
+    return (jsonify({"error": "Not found"})page)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='5000')

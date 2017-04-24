@@ -12,8 +12,7 @@ models = ["User", "Amenity", "City", "Place", "Review", "State"]
 
 @app_views.route('/status')
 def status():
-    status = json.dumps({"status": "OK"}, indent=2)
-    return(status + "\n")
+    return(jsonify({"status": "OK"}))
 
 
 @app_views.route('/stats')
@@ -22,4 +21,4 @@ def stats():
     for model in models:
         for stats in storage.count(model):
             statsDict[model] = stats
-    return(json.dumps(statsDict, indent=2, sort_keys=True))
+    return(jsonify(sorted(statsDict)))
