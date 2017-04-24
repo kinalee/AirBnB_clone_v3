@@ -2,13 +2,13 @@
 """
 
 """
-from api.v1.views import app_views
 from flask import Flask
 import json
-from models import storage
 
 
 app = Flask(__name__)
+from models import storage
+from api.v1.views import app_views
 
 
 app.register_blueprint(app_views)
