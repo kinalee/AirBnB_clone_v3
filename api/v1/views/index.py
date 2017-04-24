@@ -7,7 +7,12 @@ from flask import jsonify
 from models import storage
 
 
-models = ["User", "Amenity", "City", "Place", "Review", "State"]
+models = {"amenities": "Amenity",
+          "cities": "City",
+          "places": "Place",
+          "reviews": "Review",
+          "states": "State",
+          "users": "User"}
 
 
 @app_views.route('/status')
@@ -18,7 +23,7 @@ def status():
 @app_views.route('/stats')
 def stats():
     statsDict = {}
-    for model in models:
-        for stats in storage.count(model):
-            statsDict[model] = stats
-    return(jsonify(sorted(statsDict)))
+    for k, v in models.items():
+        statsDict[k] = storage.count(v)
+    print(statsDict)
+    return(jsonify(statsDict))
