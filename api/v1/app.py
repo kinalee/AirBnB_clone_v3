@@ -3,7 +3,7 @@
 
 """
 from api.v1.views import app_views
-from flask import Flask, jsonify
+from flask import abort, Flask, jsonify
 from models import storage
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def teardown(exception):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return (jsonify({"error": "Not found"}))
+    return(jsonify({"error": "Not found"}), 404)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='5000')
