@@ -8,10 +8,10 @@ from models import State, storage, BaseModel
 
 
 @app_views.route('/states/', methods=['GET'])
-@app_views.route('/states/<stateId>', methods=['GET'])
-def getState(stateId=None):
+@app_views.route('/states/<state_id>', methods=['GET'])
+def getState(state_id=None):
     """ Retrieves list of all or given State object """
-    if stateId is None:
+    if state_id is None:
         states = storage.all("State")
         stateList = []
         for state in states.values():
@@ -22,17 +22,17 @@ def getState(stateId=None):
         return (jsonify(stateList))
     else:
         try:
-            state = storage.get("State", stateId)
+            state = storage.get("State", state_id)
             return (jsonify(state.to_json()))
         except:
             abort(404)
 
 
-@app_views.route('/states/<stateId>', methods=['DELETE'])
-def deleteState(stateId):
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def deleteState(state_id):
     """ Deletes a State object """
     try:
-        state = storage.get("State", stateId)
+        state = storage.get("State", state_id)
         storage.delete(state)
         storage.save()
         return (jsonify({}), 200)
@@ -55,15 +55,15 @@ def createState():
     return (jsonify(storage.get("State", newState.id).to_json()), 201)
 
 
-@app_views.route('/states/<stateId>', methods=['PUT'])
-def updateState(stateId):
+@app_views.route('/states/<state_id>', methods=['PUT'])
+def updateState(state_id):
     """ Updates a State object  """
     try:
         data = request.get_json()
     except:
         abort(400, 'Not a JSON')
     try:
-        state = storage.get("State", stateId).to_json()
+        state = storage.get("State", state_id).to_json()
         for k, v in data.items():
             if (k != "id" and k != "created_at" and k != "updated_at"):
                 state[k] = v
