@@ -4,7 +4,9 @@ handles all default RestFul API actions for State object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import BaseModel, State, storage
+import models
+from models.base_model import BaseModel
+from models.states import State
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
