@@ -8,7 +8,7 @@ from models import Amenity, BaseModel, storage
 
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
-@app_views.route('amenities/<amenity_id>',
+@app_views.route('/amenities/<amenity_id>',
                  methods=['GET'], strict_slashes=False)
 def getAmenities(amenity_id=None):
     """ Retrieves list of all or given State object """
