@@ -32,7 +32,6 @@ def getCity(city_id):
         abort(404)
 
 
-
 @app_views.route('/api/v1/cities/<city_id>', methods=['DELETE'])
 def deleteCity(city_id):
     """ Deletes a City object """
