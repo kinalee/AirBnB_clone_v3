@@ -4,7 +4,7 @@ handles all default RestFul API actions for Amenity object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import Amenity, BaseModel, storage
+from models import *
 
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
