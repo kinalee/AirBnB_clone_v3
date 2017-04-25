@@ -53,12 +53,14 @@ def createCity(state_id):
         abort(400, 'Not a JSON')
     if "name" not in data:
         abort(400, 'Missing name')
-    print("what is going on?")
-    newCity = City(data)
-    print(newCity)
-    storage.new(newCity)
+    state = storage.get("State", state_id)
+    if state is None:
+        abort(404)
+    data["state_id"] = state_id
+    city = City(data)
+    storage.new(city)
     storage.save()
-    return(jsonify(storage.get("City", newCity.id).to_json()), 201)
+    return(jsonify(storage.get("City", city.id).to_json()), 201)
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
