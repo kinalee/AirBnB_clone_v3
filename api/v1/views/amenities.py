@@ -20,34 +20,32 @@ def getAmenities(amenity_id=None):
             for k, v in amenity.to_json().items():
                 amenityDict[k] = v
             amenityList.append(amenityDict)
-        return (jsonify(amenityDict))
+        return (jsonify(amenityList))
     else:
-        try:
-            amenity = storage.get("Amenity", amenity_id)
-            return (jsonify(amenity.to_json()))
-        except:
+        amenity = storage.get("Amenity", amenity_id)
+        if amenity is None:
             abort(404)
+        amenity_json = amenity.to_json()
+        return (jsonify(amenity_json))
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
                  strict_slashes=False)
 def deleteAmenity(amenity_id):
     """ Deletes an Amenity object """
-    try:
-        amenity = storage.get("Amenity", state_id)
-        storage.delete(amenity)
-        storage.save()
-        return (jsonify({}), 200)
-    except:
+    amenity = storage.get("Amenity", amenity_id)
+    if amenity is None:
         abort(404)
+    storage.delete(amenity)
+    storage.save()
+    return (jsonify({}), 200)
 
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def createAmenity():
     """ Creates an Amenity object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Not a JSON')
     if "name" not in data:
         abort(400, 'Missing name')
