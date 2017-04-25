@@ -25,12 +25,12 @@ def getStateCity(state_id):
 @app_views.route('/api/v1/cities/<city_id>', methods=['GET'])
 def getCity(city_id):
     """ Retrieves list of given City object """
-    city = storage.get("City", city_id)
-    return (jsonify(city.to_json()))
-    """
+    try:
+        city = storage.get("City", city_id)
+        return (jsonify(city.to_json()))
     except:
         abort(404)
-    """
+
 
 
 @app_views.route('/api/v1/cities/<city_id>', methods=['DELETE'])
