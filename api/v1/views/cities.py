@@ -4,7 +4,7 @@ handles all default RestFul API actions for City object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import BaseModel, City, storage
+from models import *
 
 
 @app_views.route('/states/<state_id>/cities',
@@ -59,7 +59,7 @@ def createCity(state_id):
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
-    setattr(data, "state_id", state_id)
+    data['state_id'] = state_id
     city = City(data)
     storage.new(city)
     storage.save()
