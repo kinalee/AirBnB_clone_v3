@@ -4,7 +4,7 @@ handles all default RestFul API actions for User object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import Basemodel, storage, User
+from models import BaseModel, storage, User
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
@@ -28,7 +28,7 @@ def getUser(user_id=None):
         return (jsonify(user_json))
 
 
-@app_views.route('/users/<user_id>' methods=['DELETE'],
+@app_views.route('/users/<user_id>', methods=['DELETE'],
                  strict_slashes=False)
 def deleteUser(user_id):
     """ Deletes a State object """
@@ -64,7 +64,7 @@ def updateUser(user_id):
     user = storage.get("User", user_id)
     if user is None:
         abort(404)
-    for k, v i data.items():
+    for k, v in data.items():
         if k != "id" and k != "created_at" and k != "updated_at":
             setattr(user, k, v)
     user.save()
