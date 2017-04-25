@@ -65,7 +65,8 @@ def updateUser(user_id):
     if user is None:
         abort(404)
     for k, v in data.items():
-        if k != "id" and k != "created_at" and k != "updated_at":
+        if (k != "id" and k != "created_at" and
+            k != "updated_at" and k!= "email"):
             setattr(user, k, v)
     user.save()
     user_json = user.to_json()
