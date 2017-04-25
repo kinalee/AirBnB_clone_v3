@@ -20,7 +20,7 @@ def getAmenities(amenity_id=None):
             for k, v in amenity.to_json().items():
                 amenityDict[k] = v
             amenityList.append(amenityDict)
-        return (jsonify(stateDict))
+        return (jsonify(amenityDict))
     else:
         try:
             amenity = storage.get("Amenity", amenity_id)
@@ -66,7 +66,7 @@ def updateAmenity(amenity_id):
     except:
         abort(400, 'Not a JSON')
     try:
-        amenity = storage.get("Amenity", state_id)
+        amenity = storage.get("Amenity", amenity_id)
         for k, v in data.items():
             if k != "id" and k != "created_at" and k != "updated_at":
                 setattr(amenity, k, v)
