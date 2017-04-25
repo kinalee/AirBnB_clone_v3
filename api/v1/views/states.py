@@ -68,6 +68,6 @@ def updateState(state_id):
             if k != "id" and k != "created_at" and k != "updated_at":
                 state.__dict__[k] = v
         state.save()
-        return(jsonify(state.to_json()))
+        return(jsonify(state.to_json()), 200)
     except:
         abort(404)
