@@ -22,7 +22,7 @@ def getStateCity(state_id):
         abort(404)
 
 
-@app_views.route('/api/v1/cities/<city_id>', methods=['GET'])
+@app_views.route('/cities/<city_id>', methods=['GET'])
 def getCity(city_id):
     """ Retrieves list of given City object """
     try:
@@ -32,7 +32,7 @@ def getCity(city_id):
         abort(404)
 
 
-@app_views.route('/api/v1/cities/<city_id>', methods=['DELETE'])
+@app_views.route('/cities/<city_id>', methods=['DELETE'])
 def deleteCity(city_id):
     """ Deletes a City object """
     try:
@@ -44,7 +44,7 @@ def deleteCity(city_id):
         abort(404)
 
 
-@app_views.route('/api/v1/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['POST'])
 def createCity(state_id):
     """ Creates a City object """
     try:
@@ -61,7 +61,7 @@ def createCity(state_id):
     return(jsonify(storage.get("City", newCity.id).to_json()), 201)
 
 
-@app_views.route('/api/v1/cities/<city_id>', methods=['PUT'])
+@app_views.route('/cities/<city_id>', methods=['PUT'])
 def updateCity(city_id):
     """ Updates a City object """
     try:
