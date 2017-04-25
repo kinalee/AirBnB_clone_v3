@@ -23,7 +23,8 @@ def getState(state_id=None):
     else:
         try:
             state = storage.get("State", state_id)
-            return (jsonify(state.to_json()))
+            state_json = state.to_json()
+            return (jsonify(state_json))
         except:
             abort(404)
 
@@ -53,7 +54,8 @@ def createState():
     newState = State(data)
     storage.new(newState)
     storage.save()
-    return (jsonify(storage.get("State", newState.id).to_json()), 201)
+    state_json = storage.get("State", newState.id).to_json()
+    return (jsonify(state_json), 201)
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
