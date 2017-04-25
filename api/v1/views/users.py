@@ -4,7 +4,7 @@ handles all default RestFul API actions for User object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import BaseModel, storage, User
+from models import *
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
