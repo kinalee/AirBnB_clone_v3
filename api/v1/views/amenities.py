@@ -69,8 +69,9 @@ def updateAmenity(amenity_id):
         amenity = storage.get("Amenity", state_id)
         for k, v in data.items():
             if k != "id" and k != "created_at" and k != "updated_at":
-                amenity.__dict__[k] = v
+                setattr(amenity, k, v)
         amenity.save()
-        return(jsonify(amenity.to_json()), 200)
+        amenity_json = amenity.to_json()
+        return(jsonify(amenity_json), 200)
     except:
         abort(404)
