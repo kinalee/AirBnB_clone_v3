@@ -67,7 +67,7 @@ def updateState(state_id):
         state = storage.get("State", state_id)
         for k, v in data.items():
             if k != "id" and k != "created_at" and k != "updated_at":
-                state.__dict__[k] = v
+                state.k = v
         state.save()
         return(jsonify(state.to_json()), 200)
     except:
