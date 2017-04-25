@@ -63,12 +63,12 @@ def updateState(state_id):
         data = request.get_json()
     except:
         abort(400, 'Not a JSON')
-    try:
-        state = storage.get("State", state_id)
-        for k, v in data.items():
-            if k != "id" and k != "created_at" and k != "updated_at":
-                state.k = v
-        state.save()
-        return(jsonify(state.to_json()), 200)
-    except:
+    state = storage.get("State", state_id)
+    if state is None:
         abort(404)
+    for k, v in data.items():
+        if k != "id" and k != "created_at" and k != "updated_at":
+            state.__dict__[k] = v
+    state.save()
+    state_json = state.to_json()
+    return(jsonify(state_json), 200)
