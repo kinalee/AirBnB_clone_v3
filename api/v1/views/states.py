@@ -44,7 +44,7 @@ def deleteState(state_id):
 def createState():
     """ Creates a State object """
     data = request.get_json()
-    if data in None:
+    if data is None:
         abort(400, 'Not a JSON')
     if "name" not in data:
         abort(400, 'Missing name')
