@@ -57,7 +57,7 @@ def createState():
 
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def updateState(state_id):
-    """ Updates a State object  """
+    """ Updates a State object """
     try:
         data = request.get_json()
     except:
