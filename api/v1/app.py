@@ -21,8 +21,10 @@ def page_not_found(e):
     return(jsonify({"error": "Not found"}), 404)
 
 if __name__ == "__main__":
+    apiHost = '0.0.0.0'
+    apiPort = '5000'
     if os.getenv('HBNB_API_HOST'):
-        host = 'HBNB_API_HOST'
+        apiHost = os.getenv('HBNB_API_HOST')
     if os.getenv('HBNB_API_PORT'):
-        port = 'HBNB_API_PORT'
-    app.run(host='0.0.0.0', port='5000')
+        apiPort = os.getenv('HBNB_API_PORT')
+    app.run(host=apiHost, port=apiPort)
