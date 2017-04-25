@@ -7,8 +7,8 @@ from flask import abort, jsonify, request
 from models import State, storage, BaseModel
 
 
-@app_views.route('/states/', methods=['GET'])
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def getState(state_id=None):
     """ Retrieves list of all or given State object """
     if state_id is None:
@@ -28,7 +28,7 @@ def getState(state_id=None):
             abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def deleteState(state_id):
     """ Deletes a State object """
     try:
@@ -40,7 +40,7 @@ def deleteState(state_id):
         abort(404)
 
 
-@app_views.route('/states/', methods=['POST'])
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def createState():
     """ Creates a State object """
     try:
@@ -55,7 +55,7 @@ def createState():
     return (jsonify(storage.get("State", newState.id).to_json()), 201)
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def updateState(state_id):
     """ Updates a State object """
     try:
