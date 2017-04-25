@@ -4,7 +4,7 @@ handles all default RestFul API actions for State object
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
-from models import State, storage, BaseModel
+from models import BaseModel, State, storage
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -21,33 +21,30 @@ def getState(state_id=None):
             stateList.append(stateDict)
         return (jsonify(stateList))
     else:
-        try:
-            state = storage.get("State", state_id)
-            state_json = state.to_json()
-            return (jsonify(state_json))
-        except:
+        state = storage.get("State", state_id)
+        if state is None:
             abort(404)
+        state_json = state.to_json()
+        return (jsonify(state_json))
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
                  strict_slashes=False)
 def deleteState(state_id):
     """ Deletes a State object """
-    try:
-        state = storage.get("State", state_id)
-        storage.delete(state)
-        storage.save()
-        return (jsonify({}), 200)
-    except:
+    state = storage.get("State", state_id)
+    if state is None:
         abort(404)
+    storage.delete(state)
+    storage.save()
+    return (jsonify({}), 200)
 
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def createState():
     """ Creates a State object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if date in None:
         abort(400, 'Not a JSON')
     if "name" not in data:
         abort(400, 'Missing name')
@@ -61,9 +58,8 @@ def createState():
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def updateState(state_id):
     """ Updates a State object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Not a JSON')
     state = storage.get("State", state_id)
     if state is None:
