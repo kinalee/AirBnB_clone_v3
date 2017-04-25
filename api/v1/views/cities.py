@@ -51,16 +51,15 @@ def deleteCity(city_id):
                  methods=['POST'], strict_slashes=False)
 def createCity(state_id):
     """ Creates a City object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Not a JSON')
     if "name" not in data:
         abort(400, 'Missing name')
     state = storage.get("State", state_id)
     if state is None:
         abort(404)
-    data["state_id"] = state_id
+    setattr(data, "state_id", state_id)
     city = City(data)
     storage.new(city)
     storage.save()
@@ -71,16 +70,15 @@ def createCity(state_id):
                  methods=['PUT'], strict_slashes=False)
 def updateCity(city_id):
     """ Updates a City object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Not a JSON')
     city = storage.get("City", city_id)
-    try:
-        for k, v in data.items():
-            if (k != "id" and k != "created_at" and k != "updated_at"):
-                city.__dict__[k] = v
-        city.save()
-        return(jsonify(city.to_json()), 200)
-    except:
-        abort(400)
+    if city is None:
+        abort(404)
+    for k, v in data.items():
+        if (k != "id" and k != "created_at" and k != "updated_at"):
+            setattr(city, k, v)
+    city.save()
+    city_json = city.to_json()
+    return(jsonify(city_json), 200)
