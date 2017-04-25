@@ -78,6 +78,26 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine))
 
+    def get(self, cls, id):
+        """retrieve one object"""
+        if cls in self.__models_available:
+            for obj in self.__session.query(self.__models_available[cls]):
+                if obj.__dict__['id'] == id:
+                    return obj
+        return None
+
+    def count(self, cls=None):
+        """count the number of objects in storage"""
+        count = 0
+        if cls is None:
+            for models in self.__models_available.values():
+                for c in self.__session.query(models).all():
+                    count += 1
+        else:
+            for c in self.__session.query(self.__models_available[cls]):
+                count += 1
+        return count
+
     def close(self):
         """
         close a session

@@ -101,6 +101,24 @@ class FileStorage:
             FileStorage.__objects.pop(obj.id, None)
             self.save()
 
+    def get(self, cls, id):
+        """retrieve an object"""
+        for obj in FileStorage.__objects.values():
+            if obj.__dict__['id'] == id:
+                return obj
+
+    def count(self, cls=None):
+        """count the number of objects in storage"""
+        count = 0
+        if cls is None:
+            for c in FileStorage.__objects:
+                count += 1
+        else:
+            for c in FileStorage.__objects.values():
+                if c.__class__.__name__ == cls:
+                    count += 1
+        return count
+
     def close(self):
         """Close a session"""
         self.reload()
