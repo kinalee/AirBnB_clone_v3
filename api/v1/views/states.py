@@ -68,7 +68,7 @@ def updateState(state_id):
         abort(404)
     for k, v in data.items():
         if k != "id" and k != "created_at" and k != "updated_at":
-            state.__dict__[k] = v
+            setattr(state, k, v)
     state.save()
     state_json = state.to_json()
     return(jsonify(state_json), 200)
