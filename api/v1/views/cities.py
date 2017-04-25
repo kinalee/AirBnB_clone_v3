@@ -7,7 +7,8 @@ from flask import abort, jsonify, request
 from models import BaseModel, City, storage
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'])
+@app_views.route('/states/<state_id>/cities',
+                 methods=['GET'], strict_slashes=False)
 def getStateCity(state_id):
     """ Retrieves list of given City object of a State """
     try:
@@ -22,7 +23,8 @@ def getStateCity(state_id):
         abort(404)
 
 
-@app_views.route('/cities/<city_id>', methods=['GET'])
+@app_views.route('/cities/<city_id>',
+                 methods=['GET'], strict_slashes=False)
 def getCity(city_id):
     """ Retrieves list of given City object """
     try:
@@ -32,7 +34,8 @@ def getCity(city_id):
         abort(404)
 
 
-@app_views.route('/cities/<city_id>', methods=['DELETE'])
+@app_views.route('/cities/<city_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def deleteCity(city_id):
     """ Deletes a City object """
     try:
@@ -44,7 +47,8 @@ def deleteCity(city_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities',
+                 methods=['POST'], strict_slashes=False)
 def createCity(state_id):
     """ Creates a City object """
     try:
@@ -63,15 +67,16 @@ def createCity(state_id):
     return(jsonify(storage.get("City", city.id).to_json()), 201)
 
 
-@app_views.route('/cities/<city_id>', methods=['PUT'])
+@app_views.route('/cities/<city_id>',
+                 methods=['PUT'], strict_slashes=False)
 def updateCity(city_id):
     """ Updates a City object """
     try:
         data = request.get_json()
     except:
         abort(400, 'Not a JSON')
+    city = storage.get("City", city_id)
     try:
-        city = storage.get("City", city_id)
         for k, v in data.items():
             if (k != "id" and k != "created_at" and k != "updated_at"):
                 city.__dict__[k] = v
