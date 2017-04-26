@@ -1,0 +1,5 @@
+AirBnB Ver.3 Code Review for @jimmythongtran and @iancugniere
+
+New methods in both storage modules seem very clean, explicit, and easy to understand. Seems like it accounted for possible edge cases. No typos found.
+For the count method in file_storage, maybe you could return count once after the else statement.
+Test cases might have helped to build more solid codes.
