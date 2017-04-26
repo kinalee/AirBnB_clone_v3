@@ -63,7 +63,7 @@ def createReview(review_id):
     newReview = Review(data)
     storage.new(newReview)
     storage.save()
-    return(jsonify(storage.get("Review", newReview.id).to_json()), 201)
+    return (jsonify(storage.get("Review", newReview.id).to_json()), 201)
 
 
 @app_views.route('/reviews/<review_id>',
@@ -82,4 +82,4 @@ def updateReview(review_id):
             setattr(review, k, v)
     review.save()
     review_json = review.to_json()
-    return(jsonify(review_json), 200)
+    return (jsonify(review_json), 200)
