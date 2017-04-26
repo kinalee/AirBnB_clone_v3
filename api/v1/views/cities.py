@@ -13,13 +13,16 @@ def getStateCity(state_id):
     """ Retrieves list of given City object of a State """
     if storage.get("State", state_id) is None:
         abort(404)
-    cities = storage.all("City")
-    cityList = []
-    for city in cities.values():
-        for k, v in city.to_json().items():
-            if (k == "state_id" and v == state_id):
-                cityList.append(city.to_json())
-    return (jsonify(cityList))
+    try:
+        cities = storage.all("City")
+        cityList = []
+        for city in cities.values():
+            for k, v in city.to_json().items():
+                if (k == "state_id" and v == state_id):
+                    cityList.append(city.to_json())
+        return (jsonify(cityList))
+    except:
+        abort(404)
 
 
 @app_views.route('/cities/<city_id>',
