@@ -22,7 +22,7 @@ def getCityPlace(city_id):
     return (jsonify(placeList))
 
 
-@app_views.route('places/<place_id>',
+@app_views.route('/places/<place_id>',
                  methods=['GET'], strict_slashes=False)
 def getPlace(city_id):
     """ Retrieves list of given Place object """
@@ -32,7 +32,7 @@ def getPlace(city_id):
     return (jsonify(place.to_json()))
 
 
-@app_views.route('places/<place_id>',
+@app_views.route('/places/<place_id>',
                  methods=['DELETE'], strict_slashes=False)
 def deletePlace(place_id):
     """ Deletes a Place object """
@@ -58,7 +58,7 @@ def createPlace(city_id):
     if storage.get("User", data['user_id']) is None:
         abort(404)
     data['city_id'] = city_id
-    newplace = Place(data)
+    newPlace = Place(data)
     storage.new(newPlace)
     storage.save()
     return(jsonify(storage.get("Place", newPlace.id).to_json()), 201)
