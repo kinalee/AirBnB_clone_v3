@@ -6,6 +6,3 @@ from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models import *
 import os
-
-
-if os.getenv("")
