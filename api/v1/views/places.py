@@ -75,8 +75,8 @@ def updatePlace(place_id):
     if place is None:
         abort(404)
     for k, v in data.items():
-        if (k != "id" and k != "user_id" and
-            k != "city_id" and k != "created_at" and k != "updated_at"):
+        if(k != "id" and k != "user_id" and
+           k != "city_id" and k != "created_at" and k != "updated_at"):
             setattr(place, k, v)
     place.save()
     place_json = place.to_json()
