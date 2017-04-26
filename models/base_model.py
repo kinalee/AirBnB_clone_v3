@@ -94,16 +94,17 @@ class BaseModel:
         dupe["__class__"] = type(self).__name__
         return dupe
 
-
-##    def __setattr__(self, name, value):
-##        """
-##        Forbids update of instance variables
-##        Arguments:
-##        name: name
-##        value: value
-##        """
-##        if name in ("id", "created_at", "updated_at"):
-##            if name in self.__dict__.keys()
-## and self.__dict__[name] is not None:
-##                return
-##        self.__dict__[name] = value
+"""
+    def __setattr__(self, name, value):
+"""
+#        Forbids update of instance variables
+#        Arguments:
+#        name: name
+#        value: value
+"""
+        if name in ("id", "created_at", "updated_at"):
+            if name in self.__dict__.keys()
+        and self.__dict__[name] is not None:
+                return
+        self.__dict__[name] = value
+"""
