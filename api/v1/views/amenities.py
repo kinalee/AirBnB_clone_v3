@@ -59,9 +59,8 @@ def createAmenity():
                  methods=['PUT'], strict_slashes=False)
 def updateAmenity(amenity_id):
     """ Updates an Amenity object """
-    try:
-        data = request.get_json()
-    except:
+    data = request.get_json()
+    if data is None:
         abort(400, 'Not a JSON')
     try:
         amenity = storage.get("Amenity", amenity_id)
