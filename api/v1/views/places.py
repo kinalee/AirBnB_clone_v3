@@ -11,11 +11,11 @@ from models import *
                  methods=['GET'], strict_slashes=False)
 def getCityPlace(city_id):
     """ Retrieves list of given Place object of a City """
-    place = storage.all("Place")
+    places = storage.all("Place")
     if storage.get("City", city_id) is None:
         abort(404)
     placeList = []
-    for city in places.values():
+    for place in places.values():
         for k, v in place.to_json().items():
             if (k == "city_id" and v == city_id):
                 placeList.append(place.to_json())
