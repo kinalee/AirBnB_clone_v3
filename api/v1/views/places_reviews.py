@@ -9,16 +9,16 @@ from models import *
 
 @app_views.route('/places/<place_id>/reviews',
                  methods=['GET'], strict_slashes=False)
-def getPlaceReview(city_id):
+def getPlaceReview(place_id):
     """ Retrieves list of given Review object of a Place """
     reviews = storage.all("Review")
     if storage.get("Place", place_id) is None:
         abort(404)
     reviewList = []
-    for review in reviewss.values():
+    for review in reviews.values():
         for k, v in review.to_json().items():
             if (k == "place_id" and v == place_id):
-                placeList.append(review.to_json())
+                reviewList.append(review.to_json())
     return (jsonify(reviewList))
 
 
