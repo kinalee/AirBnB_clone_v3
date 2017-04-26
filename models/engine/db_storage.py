@@ -81,6 +81,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """retrieve one object"""
+
         return self.__session.query(self.__models_available[cls]).get(id)
         if cls in self.__models_available:
             for obj in self.__session.query(self.__models_available[cls]):
