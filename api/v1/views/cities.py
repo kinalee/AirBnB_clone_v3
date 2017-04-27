@@ -29,11 +29,10 @@ def getStateCity(state_id):
                  methods=['GET'], strict_slashes=False)
 def getCity(city_id):
     """ Retrieves list of given City object """
-    try:
-        city = storage.get("City", city_id)
-        return (jsonify(city.to_json()))
-    except:
+    city = storage.get("City", city_id)
+    if city is None:
         abort(404)
+    return (jsonify(city.to_json()))
 
 
 @app_views.route('/cities/<city_id>',
