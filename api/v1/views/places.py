@@ -14,12 +14,9 @@ def getCityPlace(city_id):
     if storage.get("City", city_id) is None:
         abort(404)
     try:
-        places = storage.all("Place")
         placeList = []
-        for place in places.values():
-            for k, v in place.to_json().items():
-                if (k == "city_id" and v == city_id):
-                    placeList.append(place.to_json())
+        for place in city.places:
+            placeList.append(place.to_json())
         return (jsonify(placeList))
     except:
         abort(404)
@@ -29,10 +26,10 @@ def getCityPlace(city_id):
                  methods=['GET'], strict_slashes=False)
 def getPlace(place_id):
     """ Retrieves list of given Place object """
-    place = storage.get("Place", place_id)
-    if place is None:
-        abort(404)
-    return (jsonify(place.to_json()))
+        place = storage.get("Place", place_id)
+        if place is None:
+            abort(404)
+        return (jsonify(place.to_json()))
 
 
 @app_views.route('/places/<place_id>',
