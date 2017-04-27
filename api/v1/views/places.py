@@ -11,13 +11,16 @@ from models import *
                  methods=['GET'], strict_slashes=False)
 def getCityPlace(city_id):
     """ Retrieves list of given Place object of a City """
-    city = storage.get("City", city_id)
-    if city is None:
+    try:
+        city = storage.get("City", city_id)
+        if city is None:
+            abort(404)
+        placeList = []
+        for place in city.places:
+            placeList.append(place.to_json())
+        return (jsonify(placeList))
+    except:
         abort(404)
-    placeList = []
-    for place in city.places:
-        placeList.append(place.to_json())
-    return (jsonify(placeList))
 
 
 @app_views.route('/places/<place_id>',
